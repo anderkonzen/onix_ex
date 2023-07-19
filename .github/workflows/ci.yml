@@ -50,6 +50,9 @@ jobs:
       - name: Credo
         run: mix credo --strict
 
+      - name: Sobelow
+        run: mix sobelow
+
       - name: Restore PLT cache
         id: plt_cache
         uses: actions/cache/restore@v3
