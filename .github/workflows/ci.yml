@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    name: Elixir ${{ matrix.elixir }} / OTP ${{ matrix.otp }}
+    env:
+      MIX_ENV: test
+    strategy:
+      matrix:
+        include:
+          - elixir: 1.13.3
+            otp: 24.3.4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
+
+      - name: Setup Elixir/OTP
+        uses: erlef/setup-beam@v1.16.0
+        with:
+          otp-version: ${{ matrix.otp }}
+          elixir-version: ${{ matrix.elixir }}
+
+      - name: Cache
+        uses: actions/cache@v1.2.1
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ matrix.elixir }}-${{ matrix.otp }}-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ matrix.elixir }}-${{ matrix.otp }}-
+
+      - name: Install mix dependencies and compile
+        run: mix do deps.get, compile --warnings-as-errors --all-warnings
+
+      - name: Unlock unused dependecies
+        run: mix deps.unlock --check-unused
+
+      - name: Check formatting
+        run: mix format --check-formatted
+
+      - name: Run tests
+        run: mix coveralls.lcov
+
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@v2
+        with:
+          files: cover/lcov.info
