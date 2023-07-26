@@ -1,13 +1,18 @@
 defmodule OnixEx.MixProject do
   use Mix.Project
 
-  def project do
+  @source_url "https://github.com/anderkonzen/onix_ex"
+  @version "0.1.0"
+
+  def project() do
     [
       app: :onix_ex,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      description: "Elixir parser for the ONIX for Books standard",
+      package: package(),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
@@ -21,22 +26,28 @@ defmodule OnixEx.MixProject do
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
-  def application do
+  # Configuration for the OTP application
+  def application() do
     [
       extra_applications: [:logger]
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
-  defp deps do
+  defp deps() do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-      {:excoveralls, "~> 0.16.1", only: :test},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.3", only: [:dev, :test], runtime: false},
-      {:sobelow, "~> 0.12", only: [:dev, :test], runtime: false}
+      {:ex_doc, "~> 0.30.3", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.16.1", only: :test, runtime: false},
+      {:credo, "~> 1.7.0", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.3.0", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.12.2", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  defp package() do
+    [
+      maintainers: ["Anderson Konzen"],
+      licenses: ["Apache-2.0"],
+      links: %{"GitHub" => @source_url}
     ]
   end
 end
