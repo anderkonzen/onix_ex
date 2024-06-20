@@ -8,20 +8,26 @@ defmodule OnixEx.MixProject do
     [
       app: :onix_ex,
       version: @version,
-      elixir: "~> 1.13",
+      elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      aliases: aliases(),
       description: "Elixir parser for the ONIX for Books standard",
       package: package(),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
+        linter: :test,
+        deps_audit: :test,
+        ci: :test,
         coveralls: :test,
         "coveralls.detail": :test,
         "coveralls.lcov": :test,
         "coveralls.html": :test
       ],
       dialyzer: [
-        plt_file: {:no_warn, "priv/plts/project.plt"}
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"},
+        # Dialyze in MIX_ENV=test (CI)
+        plt_add_apps: [:ex_unit]
       ]
     ]
   end
@@ -29,17 +35,41 @@ defmodule OnixEx.MixProject do
   # Configuration for the OTP application
   def application() do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
+  # Specifies your project dependencies.
+  #
+  # Type `mix help deps` for examples and options.
   defp deps() do
     [
-      {:ex_doc, "~> 0.30.3", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.16.1", only: :test, runtime: false},
-      {:credo, "~> 1.7.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.3.0", only: [:dev, :test], runtime: false},
-      {:sobelow, "~> 0.12.2", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4.3", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.34.0", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.18.1", only: :test, runtime: false},
+      {:mix_audit, "~> 2.1.3", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.13.0", only: [:dev, :test], runtime: false}
+    ]
+  end
+
+  # Aliases are shortcuts or tasks specific to the current project.
+  # For example, to install project dependencies and perform other setup tasks, run:
+  #
+  #     $ mix setup
+  #
+  # See the documentation for `Mix` for more info on aliases.
+  defp aliases do
+    [
+      linter: ["credo --strict", "format --check-formatted", "sobelow --config"],
+      deps_audit: ["deps.audit", "deps.unlock --check-unused"],
+      ci: [
+        "compile --warnings-as-errors --all-warnings",
+        "linter",
+        "deps_audit",
+        "dialyzer",
+        "test"
+      ]
     ]
   end
 
