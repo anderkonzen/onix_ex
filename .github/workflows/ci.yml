@@ -18,14 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
+      matrix: &matrix
         versions:
           - elixir: 1.15.8
             otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.1
-            otp: 27.0
+          - elixir: 1.17.3
+            otp: 27.1
 
     steps:
       - name: Checkout
@@ -65,14 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        versions:
-          - elixir: 1.15.8
-            otp: 25.3.2.12
-          - elixir: 1.16
-            otp: 26.2
-          - elixir: 1.17.1
-            otp: 27.0
+      matrix: *matrix
 
     steps:
       - name: Checkout
@@ -113,14 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        versions:
-          - elixir: 1.15.8
-            otp: 25.3.2.12
-          - elixir: 1.16
-            otp: 26.2
-          - elixir: 1.17.1
-            otp: 27.0
+      matrix: *matrix
 
     steps:
       - name: Checkout
@@ -161,14 +147,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        versions:
-          - elixir: 1.15.8
-            otp: 25.3.2.12
-          - elixir: 1.16
-            otp: 26.2
-          - elixir: 1.17.1
-            otp: 27.0
+      matrix: *matrix
 
     steps:
       - name: Checkout
@@ -227,14 +206,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        versions:
-          - elixir: 1.15.8
-            otp: 25.3.2.12
-          - elixir: 1.16
-            otp: 26.2
-          - elixir: 1.17.1
-            otp: 27.0
+      matrix: *matrix
 
     steps:
       - name: Checkout
