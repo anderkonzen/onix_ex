@@ -59,9 +59,9 @@ jobs:
       - name: Compile
         run: mix compile --warnings-as-errors --all-warnings
 
-  linter:
+  lint:
     needs: compile
-    name: Linter and Security
+    name: Lint and Security
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
