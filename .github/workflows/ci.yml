@@ -24,8 +24,8 @@ jobs:
             otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.1
-            otp: 27.0
+          - elixir: 1.17.3
+            otp: 27.1
 
     steps:
       - name: Checkout
@@ -71,8 +71,8 @@ jobs:
             otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.1
-            otp: 27.0
+          - elixir: 1.17.3
+            otp: 27.1
 
     steps:
       - name: Checkout
@@ -119,8 +119,8 @@ jobs:
             otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.1
-            otp: 27.0
+          - elixir: 1.17.3
+            otp: 27.1
 
     steps:
       - name: Checkout
@@ -167,8 +167,8 @@ jobs:
             otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.1
-            otp: 27.0
+          - elixir: 1.17.3
+            otp: 27.1
 
     steps:
       - name: Checkout
@@ -233,8 +233,8 @@ jobs:
             otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.1
-            otp: 27.0
+          - elixir: 1.17.3
+            otp: 27.1
 
     steps:
       - name: Checkout

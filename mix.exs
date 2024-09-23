@@ -16,7 +16,7 @@ defmodule OnixEx.MixProject do
       package: package(),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
-        linter: :test,
+        lint: :test,
         deps_audit: :test,
         ci: :test,
         coveralls: :test,
@@ -44,11 +44,11 @@ defmodule OnixEx.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps() do
     [
-      {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false},
       {:excoveralls, "~> 0.18", only: :test, runtime: false},
-      {:mix_audit, "~> 2.0", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false}
     ]
   end
@@ -61,11 +61,19 @@ defmodule OnixEx.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      linter: ["credo --strict", "format --check-formatted", "sobelow --config"],
-      deps_audit: ["deps.audit", "deps.unlock --check-unused"],
+      lint: ["credo --strict", "format --check-formatted", "sobelow --config"],
+      deps_audit: [
+        "deps.audit",
+        "deps.unlock --check-unused",
+        # Compilation prunes code paths, so Hex task modules are no longer
+        # available. We need to bring the application back explicitly, in order
+        # to access its modules.
+        fn _ -> Mix.ensure_application!(:hex) end,
+        "hex.audit"
+      ],
       ci: [
         "compile --warnings-as-errors --all-warnings",
-        "linter",
+        "lint",
         "deps_audit",
         "dialyzer",
         "test"
