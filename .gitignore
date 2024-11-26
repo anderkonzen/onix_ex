@@ -5,8 +5,7 @@
 /cover/
 
 # Dialyzer's PLT file directory. Useful if Dialyxer is used in the project.
-/priv/plts/*.plt
-/priv/plts/*.plt.hash
+/priv/plts/
 
 # The directory Mix downloads your dependencies sources to.
 /deps/
