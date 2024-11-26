@@ -20,11 +20,9 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - elixir: 1.15.8
-            otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.3
+          - elixir: 1.17
             otp: 27.1
 
     steps:
@@ -67,11 +65,9 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - elixir: 1.15.8
-            otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.3
+          - elixir: 1.17
             otp: 27.1
 
     steps:
@@ -115,11 +111,9 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - elixir: 1.15.8
-            otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.3
+          - elixir: 1.17
             otp: 27.1
 
     steps:
@@ -163,11 +157,9 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - elixir: 1.15.8
-            otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.3
+          - elixir: 1.17
             otp: 27.1
 
     steps:
@@ -229,11 +221,9 @@ jobs:
       fail-fast: false
       matrix:
         versions:
-          - elixir: 1.15.8
-            otp: 25.3.2.12
           - elixir: 1.16
             otp: 26.2
-          - elixir: 1.17.3
+          - elixir: 1.17
             otp: 27.1
 
     steps:

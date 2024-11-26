@@ -1,5 +1,5 @@
 defmodule OnixExTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest OnixEx
 
   test "greets the world" do
